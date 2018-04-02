@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -12,23 +6,20 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import {ReactNativeAD, ADLoginView} from 'react-native-azure-ad'
+import { ReactNativeAD, ADLoginView } from 'react-native-azure-ad'
+import { Header, Button } from './components/common'
+
+
 const CLIENT_ID = '9411ea1c-521f-473a-bdf4-d78ded808822'
 const AUTH_URL = 'https://login.microsoftonline.com/common/oauth2/authorize'
 const ADContext = new ReactNativeAD({
-      client_id : CLIENT_ID,
-      //redirectUrl : 'http://localhost:3000/token',
-      // Optional
-      authority_host : AUTH_URL,
-      // Optional
-      // tenant  : 'common',
-      // This is required if client_id is a web application id
-      // but not recommended doing this way.
-      client_secret : 'zzPQW51$^crrrcHRYU022|!',
-      resources : [
-        'https://graph.microsoft.com',
-      ]
-    })
+  client_id: CLIENT_ID,
+  authority_host: AUTH_URL,
+  client_secret: 'zzPQW51$^crrrcHRYU022|!',
+  resources: [
+    'https://graph.microsoft.com',
+  ]
+})
 
 class rn_ad_sample extends Component {
 
@@ -83,7 +74,6 @@ class rn_ad_sample extends Component {
       break
     }
   }
-
   _onURLChange(e) {
     // listen to webview URL change, if the URL matches login URL redirect user
     // to start page.
@@ -96,20 +86,17 @@ class rn_ad_sample extends Component {
       })
     }
   }
-
   _showADLogin() {
     this.setState({
       displayType : 'login'
     })
   }
-
   _logout() {
     this.setState({
       displayType : 'login',
       shouldLogout : true
     })
   }
-
   _onLoginSuccess(cred) {
     console.log('user credential', cred)
     let access_token = ADContext.getAccessToken('https://graph.microsoft.com')
@@ -146,4 +133,3 @@ const styles = StyleSheet.create({
 
 export default rn_ad_sample;
 
-AppRegistry.registerComponent('rn_ad_sample', () => rn_ad_sample);

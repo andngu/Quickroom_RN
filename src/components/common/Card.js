@@ -20,7 +20,7 @@ const styles = {
         shadowOpacity: 0.1,
         shadowRadius: 2,
         elevation: 1,
-        marginTop: 5
+        marginTop: 2
     }
 };
 

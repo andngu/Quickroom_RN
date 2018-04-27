@@ -17,9 +17,9 @@ const BuildingList = ({ building }) => {
                     source={{ uri: image }}
                     style={styles.image}
                 >
-                <Text style={styles.buildingName}>
-                {title}
-                </Text>
+                    <Text style={styles.buildingName}>
+                        {title}
+                    </Text>
                 </ImageBackground>
 
             </TouchableOpacity>
@@ -29,14 +29,21 @@ const BuildingList = ({ building }) => {
 
 const styles = StyleSheet.create({
     touchableCard: {
-        flex: 1
+        flex: 1,
+        alignItems: 'stretch',
+        justifyContent: 'center'
     },
     image: {
         flex: 1,
-        width: '100%',
-        height: '100%'
+        height: 150,
+        width: 375,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     buildingName: {
+        fontSize: 35,
+        color: 'white',
+        fontWeight: 'bold',
         textAlign: 'center'
     }
 });

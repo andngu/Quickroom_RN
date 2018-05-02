@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet } from 'react-native';
+import { observer, inject } from 'mobx-react';
+import { withNavigation } from 'react-navigation';
 import { Card } from './common';
 
 const styles = StyleSheet.create({
+  viewStyle: {
+    backgroundColor: '#ddd',
+  },
   touchableCard: {
     flex: 1,
     alignItems: 'stretch',
@@ -23,18 +28,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const BuildingList = ({ building, onReservePress }) => {
-  const { title, image } = building;
-
-  return (
-    <Card>
-      <TouchableOpacity style={styles.touchableCard} onPress={onReservePress}>
-        <ImageBackground source={{ uri: image }} style={styles.image}>
-          <Text style={styles.buildingName}>{title}</Text>
-        </ImageBackground>
-      </TouchableOpacity>
-    </Card>
-  );
-};
+const BuildingList = ({ building, onPress }) => (
+  <Card>
+    <TouchableOpacity style={styles.touchableCard} onPress={onPress}>
+      <ImageBackground source={{ uri: building.image }} style={styles.image}>
+        <Text style={styles.buildingName}>{building.title}</Text>
+      </ImageBackground>
+    </TouchableOpacity>
+  </Card>
+);
 
 export default BuildingList;

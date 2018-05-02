@@ -4,36 +4,28 @@ class BuildingStore {
   @observable
   buildings = [
     {
-      id: 0,
       title: 'Bizzell Library',
       image: 'https://imgur.com/TsCyrYD.png',
     },
     {
-      id: 1,
       title: 'Devon Energy Hall',
       image: 'https://imgur.com/jMgTyIU.png',
     },
     {
-      id: 2,
       title: 'Innovation Hub',
       image: 'https://imgur.com/zkCt99H.png',
     },
     {
-      id: 3,
       title: 'Wagner Hall',
       image: 'https://imgur.com/ZAAbEUh.png',
     },
   ];
 
-  @observable buildingId = null;
+  @observable selectedBuilding = null;
 
   @action
-  setBuildingId(buildingId) {
-    this.buildingId = buildingId;
-  }
-  @action
-  getBuildings() {
-    return this.buildings.slice();
+  selectBuilding(building) {
+    this.selectedBuilding = building;
   }
 
   /* -----------BIZZELL------------ */

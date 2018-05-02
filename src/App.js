@@ -4,7 +4,7 @@ import Router from './Router';
 import stores from './stores';
 
 const App = () => (
-  <Provider BuildingStore={stores.BuildingStore}>
+  <Provider {...stores}>
     <Router />
   </Provider>
 );

@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
-import RoomList from '../RoomList';
-import roomsList from '../RoomsList.json';
+import { FlatList, TouchableOpacity, ImageBackground, Text, StyleSheet } from 'react-native';
+import { observer, inject } from 'mobx-react';
+import { Card, Button } from '../common';
 
-class RoomScreen extends Component {
-  state = { rooms: roomsList };
+const styles = StyleSheet.create({
+  touchableCard: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  image: {
+    flex: 1,
+    height: 150,
+    width: 375,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  roomName: {
+    fontSize: 35,
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
 
-  renderRooms() {
-    return this.state.rooms.map(
-      room => <RoomList key={room.title} room={room} />,
-      console.log(this.state.rooms),
-    );
-  }
+@inject(['RoomStore'])
+@observer
+class BuildingScreen extends Component {
+  renderItem = ({ item, index }) => (
+    <Card>
+      <Text style={styles.roomName}>{item.title}</Text>
+      <Button
+        onPress={() => {
+          this.props.RoomStore.selectRoom(item.title);
+          console.log(this.props.RoomStore.selectedRoom);
+        }}
+      >
+        Reserve
+      </Button>
+    </Card>
+  );
+
   render() {
-    return <ScrollView>{this.renderRooms()}</ScrollView>;
+    const data = this.props.RoomStore.roomsToDisplay();
+    return (
+      <FlatList
+        data={data}
+        extraData={data}
+        keyExtractor={(item, index) => `${index}`}
+        renderItem={this.renderItem}
+      />
+    );
   }
 }
 
-export default RoomScreen;
+export default BuildingScreen;

@@ -23,6 +23,7 @@ const styles = {
     marginRight: 5,
   },
   textStyle: {
+    justifyContent: 'center',
     alignSelf: 'center',
     color: '#007aff',
     fontSize: 16,

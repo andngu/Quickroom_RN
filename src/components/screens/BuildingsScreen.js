@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity, ImageBackground, Text, StyleSheet } from 'react-native';
 import { observer, inject } from 'mobx-react';
-import { Card, Button } from '../common';
+import { Card } from '../common';
 
 const styles = StyleSheet.create({
+  viewStyle: {
+    backgroundColor: '#ddd',
+  },
   touchableCard: {
     flex: 1,
     alignItems: 'stretch',
@@ -16,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  roomName: {
+  buildingName: {
     fontSize: 35,
     color: 'white',
     fontWeight: 'bold',
@@ -24,25 +27,29 @@ const styles = StyleSheet.create({
   },
 });
 
-@inject(['RoomStore'])
+@inject(['BuildingStore'])
 @observer
-class BuildingScreen extends Component {
+class BuildingsScreen extends Component {
   renderItem = ({ item, index }) => (
     <Card>
-      <Text style={styles.roomName}>{item.title}</Text>
-      <Button
+      <TouchableOpacity
+        style={styles.touchableCard}
         onPress={() => {
-          this.props.RoomStore.selectRoom(item.title);
-          console.log(this.props.RoomStore.selectedRoom);
+          this.props.BuildingStore.selectBuilding(item.title);
+          this.props.navigation.navigate('RoomsScreen');
+          console.log(this.props.BuildingStore.selectedBuilding);
         }}
       >
-        Reserve
-      </Button>
+        <ImageBackground source={{ uri: item.image }} style={styles.image}>
+          <Text style={styles.buildingName}>{item.title}</Text>
+        </ImageBackground>
+      </TouchableOpacity>
     </Card>
   );
 
   render() {
-    const data = this.props.RoomStore.roomsToDisplay();
+    const data = this.props.BuildingStore.buildings.slice();
+
     return (
       <FlatList
         data={data}
@@ -54,4 +61,4 @@ class BuildingScreen extends Component {
   }
 }
 
-export default BuildingScreen;
+export default BuildingsScreen;

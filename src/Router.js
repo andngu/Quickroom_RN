@@ -1,17 +1,19 @@
 import { StackNavigator, SwitchNavigator } from 'react-navigation';
 import HomeScreen from './components/screens/HomeScreen';
-import BuildingScreen from './components/screens/BuildingScreen';
+import BuildingsScreen from './components/screens/BuildingsScreen';
 import AuthScreen from './components/screens/AuthScreen';
-import RoomScreen from './components/screens/RoomScreen';
+import RoomsScreen from './components/screens/RoomsScreen';
+import DatePickerScreen from './components/screens/DatePickerScreen';
 
 const SignedIn = StackNavigator(
   {
-    Home: { screen: HomeScreen },
-    Building: { screen: BuildingScreen },
-    Room: { screen: RoomScreen },
+    HomeScreen: { screen: HomeScreen },
+    BuildingsScreen: { screen: BuildingsScreen },
+    RoomsScreen: { screen: RoomsScreen },
+    DatePickerScreen: { screen: DatePickerScreen },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'HomeScreen',
   },
 );
 

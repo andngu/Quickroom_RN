@@ -122,7 +122,7 @@ class AuthScreen extends Component {
             </Text>,
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Building')}
+              onPress={() => this.props.navigation.navigate('BuildingsScreen')}
             >
               <Text style={{ color: 'white' }}>Buildings</Text>
             </TouchableOpacity>

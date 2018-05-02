@@ -1,5 +1,4 @@
 import { observable, action, computed } from 'mobx';
-import BuildingStore from './BuildingStore';
 
 class RoomStore {
   @observable
@@ -67,25 +66,9 @@ class RoomStore {
   ];
   @observable selectedRoom = null;
 
-  @observable roomsToDisplay = null;
-
   @action
   selectRoom(room) {
     this.selectedRoom = room;
-  }
-
-  @computed
-  roomsToDisplay() {
-    switch (BuildingStore.selectedBuilding) {
-      case 'Bizzel Library':
-        return this.bizzellRooms.slice();
-      case 'Devon Energy Hall':
-        return this.devonRooms.slice();
-      case 'Innovation Hub':
-        return this.innovationRooms.slice();
-      default:
-        break;
-    }
   }
 }
 

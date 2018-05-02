@@ -31,7 +31,7 @@ class BuildingStore {
   /* -----------BIZZELL------------ */
   @action
   getBizzell() {
-    return this.getBuildings()[0];
+    return this.buildings[0];
   }
   @action
   setBizzell() {
@@ -42,7 +42,7 @@ class BuildingStore {
   /* ------------DEVON------------- */
   @action
   getDevon() {
-    return this.getBuildings()[1];
+    return this.buildings[1];
   }
   @action
   setDevon() {
@@ -53,7 +53,7 @@ class BuildingStore {
   /* ----------INNOVATION---------- */
   @action
   getInnovation() {
-    return this.getBuildings()[2];
+    return this.buildings[2];
   }
   @action
   setInnovation() {
@@ -64,7 +64,7 @@ class BuildingStore {
   /* ------------WAGNER------------ */
   @action
   getWagner() {
-    return this.getBuildings()[3];
+    return this.buildings[3];
   }
   @action
   setWagner() {

@@ -48,7 +48,7 @@ class DatePickerScreen extends Component {
         </View>
 
         <View style={{ height: 100, paddingTop: 20, paddingBottom: 10 }}>
-          <Button>Go on</Button>
+          <Button onPress={() => this.props.navigation.navigate('TimePickerScreen')}>Go on</Button>
         </View>
       </View>
     );

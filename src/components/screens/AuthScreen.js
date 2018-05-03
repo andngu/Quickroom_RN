@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { ReactNativeAD, ADLoginView } from 'react-native-azure-ad';
-
-const CLIENT_ID = '124cfe16-f017-446a-ad4d-f539ac97de60';
-const AUTH_URL = 'https://login.microsoftonline.com/common/oauth2/authorize';
-const ADContext = new ReactNativeAD({
-  client_id: CLIENT_ID,
-  redirectUrl: 'http://localhost:3000/token',
-  authority_host: AUTH_URL,
-  client_secret: 'tsrwyhZIJCK2$#+uKF0681]',
-  resources: ['https://graph.microsoft.com'],
-});
+import { inject, observer } from 'mobx-react';
+import { ADLoginView } from 'react-native-azure-ad';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,6 +19,8 @@ const styles = StyleSheet.create({
   },
 });
 
+@inject(['ApiKeysStore'])
+@observer
 class AuthScreen extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +39,7 @@ class AuthScreen extends Component {
   }
 
   onURLChange(e) {
+    const { AUTH_URL, CLIENT_ID } = this.props.ApiKeysStore;
     // listen to webview URL change, if the URL matches login URL redirect user
     // to start page.
     const isLoginPage = e.url === `${AUTH_URL}?response_type=code&client_id=${CLIENT_ID}`;
@@ -59,8 +53,9 @@ class AuthScreen extends Component {
   }
 
   onLoginSuccess(cred) {
+    const { ADContext } = this.props.ApiKeysStore;
     console.log('user credential', cred);
-    const accessToken = ADContext.getAccessToken('https://graph.microsoft.com');
+    const accessToken = this.props.ApiKeysStore.getToken();
     fetch('https://graph.microsoft.com/v1.0/me', {
       method: 'GET',
       headers: {
@@ -91,6 +86,7 @@ class AuthScreen extends Component {
   }
 
   renderContent() {
+    const { ADContext } = this.props.ApiKeysStore;
     switch (this.state.displayType) {
       case 'before_login':
         return (

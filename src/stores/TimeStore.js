@@ -1,4 +1,6 @@
 import { observable, action } from 'mobx';
+import ApiKeysStore from './ApiKeysStore';
+import DateStore from './DateStore';
 
 class TimeStore {
   @observable
@@ -107,11 +109,68 @@ class TimeStore {
     },
   ];
 
+  @observable availableTimes = [];
   @observable selectedTime = null;
 
   @action
   selectTime(time) {
     this.selectedTime = time;
+  }
+
+  @action
+  fetchAvailableTimes() {
+    const accessToken = ApiKeysStore.getToken();
+    this.availableTimes = fetch('https://graph.microsoft.com/v1.0/me/findMeetingTimes', {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${accessToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+
+      body: JSON.stringify({
+        attendees: [
+          {
+            emailAddress: {
+              address: 'testrmc@ou.edu',
+              name: 'testRMC',
+            },
+            type: 'Required',
+          },
+        ],
+        timeConstraint: {
+          timeslots: [
+            {
+              start: {
+                dateTime: DateStore.selectedDate.format(),
+                timeZone: 'Central Standard Time',
+              },
+              end: {
+                dateTime: DateStore.selectedDate.add(16, 'hours'),
+                timeZone: 'Central Standard Time',
+              },
+            },
+          ],
+        },
+        locationConstraint: {
+          isRequired: 'true',
+          suggestLocation: 'false',
+          locations: [
+            {
+              displayName: 'testRMC',
+              locationEmailAddress: 'testrmc@ou.edu',
+            },
+          ],
+        },
+        meetingDuration: 'PT1H',
+      }),
+    })
+      .then(response => response.json())
+      .then((responseData) => {
+        console.log('inside responsejson');
+        console.log('response object:', responseData);
+      })
+      .done();
   }
 }
 

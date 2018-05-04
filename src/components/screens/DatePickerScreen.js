@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-@inject(['DateStore'])
+@inject(['DateStore'], ['TimeStore'])
 @observer
 class DatePickerScreen extends Component {
   render() {
@@ -41,14 +41,22 @@ class DatePickerScreen extends Component {
             iconRight={require('./img/right-arrow-black.png')}
             iconContainer={{ flex: 0.1 }}
             onDateSelected={(date) => {
-              DateStore.setDate(date);
+              DateStore.setDate(date.startOf('day').add(7, 'hours'));
               console.log(DateStore.selectedDate);
             }}
           />
         </View>
 
         <View style={{ height: 100, paddingTop: 20, paddingBottom: 10 }}>
-          <Button onPress={() => this.props.navigation.navigate('TimePickerScreen')}>Go on</Button>
+          <Button
+            onPress={() => {
+              this.props.navigation.navigate('TimePickerScreen');
+              this.props.TimeStore.fetchAvailableTimes();
+              console.log(this.props.TimeStore.availableTimes);
+            }}
+          >
+            Go on
+          </Button>
         </View>
       </View>
     );

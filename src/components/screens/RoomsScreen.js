@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, Text, StyleSheet } from 'react-native';
 import { observer, inject } from 'mobx-react';
-import { Card, Button } from '../common';
+import { Card, Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   touchableCard: {
@@ -27,6 +27,10 @@ const styles = StyleSheet.create({
 @inject(['BuildingStore'], ['RoomStore'])
 @observer
 class RoomsScreen extends Component {
+  static navigationOptions = {
+    title: 'Rooms',
+  };
+
   roomsToDisplay() {
     const { BuildingStore } = this.props;
     const {
@@ -48,17 +52,18 @@ class RoomsScreen extends Component {
   }
 
   renderItem = ({ item, index }) => (
-    <Card>
+    <Card title={item.title}>
       <Text style={styles.roomName}>{item.title}</Text>
       <Button
+        rounded
+        title="RESERVE"
+        backgroundColor="#007aff"
         onPress={() => {
           this.props.RoomStore.selectRoom(item.title);
           this.props.navigation.navigate('DatePickerScreen');
           console.log(this.props.RoomStore.selectedRoom);
         }}
-      >
-        Reserve
-      </Button>
+      />
     </Card>
   );
 

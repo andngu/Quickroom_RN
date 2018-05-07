@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import ApiKeysStore from './ApiKeysStore';
 import DateStore from './DateStore';
 
@@ -120,7 +120,7 @@ class TimeStore {
   @action
   fetchAvailableTimes() {
     const accessToken = ApiKeysStore.getToken();
-    this.availableTimes = fetch('https://graph.microsoft.com/v1.0/me/findMeetingTimes', {
+    return fetch('https://graph.microsoft.com/v1.0/me/findMeetingTimes', {
       method: 'POST',
       headers: {
         Authorization: `bearer ${accessToken}`,
@@ -169,6 +169,8 @@ class TimeStore {
       .then((responseData) => {
         console.log('inside responsejson');
         console.log('response object:', responseData);
+        this.availableTimes = responseData;
+        console.log(toJS(this.availableTimes));
       })
       .done();
   }

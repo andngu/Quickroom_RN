@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
+import moment from 'moment';
 import { observer, inject } from 'mobx-react';
 import { Card, CardSection, Button } from '../common';
 
@@ -15,12 +16,17 @@ const styles = StyleSheet.create({
 @inject(['DateStore'], ['TimeStore'])
 @observer
 class DatePickerScreen extends Component {
+  static navigationOptions = {
+    title: 'Choose a Date',
+  };
+
   render() {
     const { DateStore } = this.props;
     return (
       <View style={styles.container}>
         <View>
           <CalendarStrip
+            startingDate={null}
             calendarAnimation={{ type: 'sequence', duration: 30 }}
             daySelectionAnimation={{
               type: 'border',
@@ -37,6 +43,13 @@ class DatePickerScreen extends Component {
             highlightDateNameStyle={{ color: 'gold' }}
             disabledDateNameStyle={{ color: 'grey' }}
             disabledDateNumberStyle={{ color: 'grey' }}
+            dateWhiteList={[
+              {
+                start: moment(),
+                end: moment().add(3, 'days'), // total 4 days enabled
+              },
+            ]}
+            dateBlackList={[moment().subtract(3, 'days')]}
             iconLeft={require('./img/left-arrow-black.png')}
             iconRight={require('./img/right-arrow-black.png')}
             iconContainer={{ flex: 0.1 }}
@@ -52,7 +65,7 @@ class DatePickerScreen extends Component {
             onPress={() => {
               this.props.navigation.navigate('TimePickerScreen');
               this.props.TimeStore.fetchAvailableTimes();
-              console.log(this.props.TimeStore.availableTimes);
+              console.log(DateStore.selectedDate);
             }}
           >
             Go on

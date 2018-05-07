@@ -16,6 +16,8 @@
     "react-native": "0.54.4",
     "react-native-azure-ad": "^0.2.4",
     "react-native-calendar-strip": "^1.3.3",
+    "react-native-elements": "^0.19.1",
+    "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11"
   },
   "devDependencies": {

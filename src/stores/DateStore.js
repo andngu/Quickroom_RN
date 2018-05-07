@@ -1,7 +1,8 @@
 import { observable, action } from 'mobx';
+import moment from 'moment';
 
 class DateStore {
-  @observable selectedDate = null;
+  @observable selectedDate = moment();
 
   @action
   setDate(date) {

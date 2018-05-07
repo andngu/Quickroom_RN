@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { ADLoginView } from 'react-native-azure-ad';
+import { Button } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#ddd',
   },
   button: {
     alignItems: 'center',
@@ -90,9 +91,14 @@ class AuthScreen extends Component {
     switch (this.state.displayType) {
       case 'before_login':
         return (
-          <TouchableOpacity style={styles.button} onPress={this.showADLogin}>
-            <Text style={{ color: 'white' }}>Login</Text>
-          </TouchableOpacity>
+          <Button
+            raised
+            large
+            rounded
+            backgroundColor="#841617"
+            title="LOGIN"
+            onPress={this.showADLogin}
+          />
         );
       case 'login':
         // In fact we care if it successfully redirect to the URI, because
@@ -111,20 +117,19 @@ class AuthScreen extends Component {
         );
       case 'after_login':
         return (
-          <View>
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-evenly' }}>
             <Text>
               {"You're logged in as "}
               {this.state.info}
             </Text>,
-            <TouchableOpacity
-              style={styles.button}
+            <Button
+              raised
+              rounded
+              backgroundColor="#841617"
+              title="BUILDINGS"
               onPress={() => this.props.navigation.navigate('BuildingsScreen')}
-            >
-              <Text style={{ color: 'white' }}>Buildings</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={this.logout}>
-              <Text style={{ color: 'white' }}>Logout</Text>
-            </TouchableOpacity>
+            />
+            <Button raised rounded backgroundColor="#841617" title="LOGOUT" onPress={this.logout} />
           </View>
         );
       default:

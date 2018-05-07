@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { observer, inject } from 'mobx-react';
+import { toJS } from 'mobx';
 import { Card, Button } from '../common';
 
 @inject(['TimeStore'])
 @observer
 class TimePickerScreen extends Component {
+  static navigationOptions = {
+    title: 'Available Times',
+  };
+
   renderItem = ({ item, index }) => (
     <Card>
       <Button

@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 import { ReactNativeAD } from 'react-native-azure-ad';
 
 class ApiKeysStore {
-  @observable CLIENT_ID = '124cfe16-f017-446a-ad4d-f539ac97de60';
+  @observable CLIENT_ID = 'bcea607a-3dbd-4460-a882-b727c299eb1e';
 
   @observable AUTH_URL = 'https://login.microsoftonline.com/common/oauth2/authorize';
 
@@ -11,7 +11,7 @@ class ApiKeysStore {
     client_id: this.CLIENT_ID,
     redirectUrl: 'http://localhost:3000/token',
     authority_host: this.AUTH_URL,
-    client_secret: 'tsrwyhZIJCK2$#+uKF0681]',
+    client_secret: 'nfvT4386[(iqyoOWKTNE8!#',
     resources: ['https://graph.microsoft.com'],
   });
 

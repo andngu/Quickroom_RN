@@ -30,6 +30,10 @@ const styles = StyleSheet.create({
 @inject(['BuildingStore'])
 @observer
 class BuildingsScreen extends Component {
+  static navigationOptions = {
+    title: 'Buildings',
+  };
+
   renderItem = ({ item, index }) => (
     <Card>
       <TouchableOpacity

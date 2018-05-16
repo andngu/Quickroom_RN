@@ -3,7 +3,14 @@ import { View, Text } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
 
-@inject(['DetailsStore'], ['ApiKeysStore'], ['BuildingStore'], ['RoomStore'])
+@inject(
+  ['DetailsStore'],
+  ['ApiKeysStore'],
+  ['BuildingStore'],
+  ['RoomStore'],
+  ['TimeStore'],
+  ['DateStore'],
+)
 @observer
 class DetailsScreen extends Component {
   createEvent() {
@@ -21,14 +28,14 @@ class DetailsScreen extends Component {
         subject: this.props.DetailsStore.eventName,
         body: {
           contentType: 'HTML',
-          content: 'Please work',
+          content: this.props.DetailsStore.eventName,
         },
         start: {
-          dateTime: '2018-05-26T06:11:50.398Z',
+          dateTime: this.props.DateStore.selectedDate.format(),
           timeZone: 'UTC',
         },
         end: {
-          dateTime: '2018-05-26T07:11:50.398Z',
+          dateTime: this.props.DateStore.selectedDate.add(1, 'hours').format(),
           timeZone: 'UTC',
         },
         location: {

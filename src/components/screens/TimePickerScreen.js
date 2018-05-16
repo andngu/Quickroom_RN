@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import { Card, Button } from '../common';
 
-@inject(['TimeStore'])
+@inject(['TimeStore'], ['DateStore'])
 @observer
 class TimePickerScreen extends Component {
   static navigationOptions = {
@@ -16,8 +16,10 @@ class TimePickerScreen extends Component {
       <Button
         onPress={() => {
           this.props.TimeStore.selectTime(item.time);
+          this.props.DateStore.selectedDate.add(item.id, 'hours');
           this.props.navigation.navigate('DetailsScreen');
           console.log(this.props.TimeStore.selectedTime);
+          console.log(this.props.TimeStore.selectedId);
         }}
       >
         {item.time}

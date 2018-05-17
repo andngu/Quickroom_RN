@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { CalendarList } from 'react-native-calendars';
 import moment from 'moment';
 import { observer, inject } from 'mobx-react';
@@ -7,8 +7,14 @@ import { Card, CardSection, Button } from '../common';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
+    width: '100%',
+    aspectRatio: 2 / 1,
+  },
+  calendar: {
+    height: 300,
+  },
+  date: {
+    fontSize: 40,
   },
 });
 
@@ -25,31 +31,36 @@ class DatePickerScreen extends Component {
       <View style={styles.container}>
         <Card>
           <CardSection>
+            {DateStore.selectedDate == null ? (
+              <Text style={styles.date}>Selected Date</Text>
+            ) : (
+              <Text style={styles.date}>
+                {moment(DateStore.selectedDate).format('ddd MMMM Do')}
+              </Text>
+            )}
+          </CardSection>
+          <CardSection>
             <CalendarList
-              horizontal
-              pagingEnabled
-              calendarWidth={320}
+              style={styles.calendar}
               onDayPress={(date) => {
-                DateStore.setDate(moment.utc(date.dateString));
-                console.log(date);
+                DateStore.setDate(date.dateString);
+                console.log(DateStore.selectedDate);
               }}
               minDate={Date()}
               pastScrollRange={0}
               futureScrollRange={4}
             />
           </CardSection>
-        </Card>
 
-        <Card>
           <CardSection>
             <Button
               onPress={() => {
                 this.props.navigation.navigate('TimePickerScreen');
-                this.props.TimeStore.fetchAvailableTimes();
+                // this.props.TimeStore.fetchAvailableTimes();
                 console.log(DateStore.selectedDate);
               }}
             >
-              Go on
+              Confirm
             </Button>
           </CardSection>
         </Card>

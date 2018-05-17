@@ -16,7 +16,7 @@ class TimePickerScreen extends Component {
       <Button
         onPress={() => {
           this.props.TimeStore.selectTime(item.time);
-          this.props.DateStore.selectedDate.add(item.id, 'hours');
+          this.props.TimeStore.selectId(item.id);
           this.props.navigation.navigate('DetailsScreen');
           console.log(this.props.TimeStore.selectedTime);
           console.log(this.props.TimeStore.selectedId);

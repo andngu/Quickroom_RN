@@ -159,6 +159,7 @@ class TimeStore {
 
   @action
   fetchAvailableTimes() {
+    const date = DateStore.selectedDate.clone();
     const accessToken = ApiKeysStore.getToken();
     return fetch('https://graph.microsoft.com/v1.0/me/findMeetingTimes', {
       method: 'POST',
@@ -182,12 +183,18 @@ class TimeStore {
           timeslots: [
             {
               start: {
-                dateTime: DateStore.selectedDate.format(),
-                timeZone: 'Central Standard Time',
+                dateTime: date
+                  .add(7, 'hours')
+                  .utc()
+                  .format(),
+                timeZone: 'UTC',
               },
               end: {
-                dateTime: DateStore.selectedDate.add(16, 'hours'),
-                timeZone: 'Central Standard Time',
+                dateTime: date
+                  .add(16, 'hours')
+                  .utc()
+                  .format(),
+                timeZone: 'UTC',
               },
             },
           ],

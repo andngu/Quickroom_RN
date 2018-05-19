@@ -7,15 +7,21 @@ import { Card, CardSection, Button } from '../common';
 
 const styles = StyleSheet.create({
   container: {
+<<<<<<< HEAD
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
+=======
+    width: '100%',
+    aspectRatio: 2 / 1,
+>>>>>>> 80910725061d827556f768f0b7b1007011a60f85
   },
   calendar: {
     height: 300,
   },
   date: {
     fontSize: 40,
+<<<<<<< HEAD
   },
   dateContainer: {
     height: '25%',
@@ -25,6 +31,8 @@ const styles = StyleSheet.create({
     padding: 5,
     borderColor: '#ddd',
     backgroundColor: '#fff',
+=======
+>>>>>>> 80910725061d827556f768f0b7b1007011a60f85
   },
 });
 
@@ -50,10 +58,23 @@ class DatePickerScreen extends Component {
             )}
           </View>
           <CardSection>
+            {DateStore.selectedDate == null ? (
+              <Text style={styles.date}>Selected Date</Text>
+            ) : (
+              <Text style={styles.date}>
+                {moment(DateStore.selectedDate).format('ddd MMMM Do')}
+              </Text>
+            )}
+          </CardSection>
+          <CardSection>
             <CalendarList
               style={styles.calendar}
               onDayPress={(date) => {
                 DateStore.setDate(date.dateString);
+<<<<<<< HEAD
+=======
+                console.log(DateStore.selectedDate);
+>>>>>>> 80910725061d827556f768f0b7b1007011a60f85
               }}
               minDate={Date()}
               pastScrollRange={0}

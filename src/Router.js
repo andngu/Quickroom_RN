@@ -17,7 +17,7 @@ const SignedIn = StackNavigator(
     DetailsScreen: { screen: DetailsScreen },
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'BuildingsScreen',
   },
 );
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import moment from 'moment';
 import { observer, inject } from 'mobx-react';
 import { Card, CardSection, Input, Button, Spinner } from '../common';
 
@@ -31,11 +32,17 @@ class DetailsScreen extends Component {
           content: this.props.DetailsStore.eventName,
         },
         start: {
-          dateTime: this.props.DateStore.selectedDate.format(),
+          dateTime: moment(this.props.DateStore.selectedDate)
+            .add(this.props.TimeStore.selectedId, 'hours')
+            .utc()
+            .format(),
           timeZone: 'UTC',
         },
         end: {
-          dateTime: this.props.DateStore.selectedDate.add(1, 'hours').format(),
+          dateTime: moment(this.props.DateStore.selectedDate)
+            .add(this.props.TimeStore.selectedId + 1, 'hours')
+            .utc()
+            .format(),
           timeZone: 'UTC',
         },
         location: {
@@ -82,7 +89,7 @@ class DetailsScreen extends Component {
         </CardSection>
 
         <CardSection>
-          <Button onPress={() => this.createEvent()} />
+          <Button onPress={() => this.createEvent()}>Create Event</Button>
         </CardSection>
       </Card>
     );

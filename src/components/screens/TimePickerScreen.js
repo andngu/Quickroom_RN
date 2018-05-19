@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { observer, inject } from 'mobx-react';
+import moment from 'moment';
 import { toJS } from 'mobx';
 import { Card, Button } from '../common';
 
@@ -16,10 +17,16 @@ class TimePickerScreen extends Component {
       <Button
         onPress={() => {
           this.props.TimeStore.selectTime(item.time);
-          this.props.DateStore.selectedDate.add(item.id, 'hours');
+          this.props.TimeStore.selectId(item.id);
           this.props.navigation.navigate('DetailsScreen');
-          console.log(this.props.TimeStore.selectedTime);
-          console.log(this.props.TimeStore.selectedId);
+          console.log(moment(this.props.DateStore.selectedDate)
+              .add(this.props.TimeStore.selectedId, 'hours')
+              .utc()
+              .format());
+          console.log(moment(this.props.DateStore.selectedDate)
+              .add(1, 'hours')
+              .utc()
+              .format());
         }}
       >
         {item.time}

@@ -31,6 +31,7 @@ class RoomsScreen extends Component {
     title: 'Rooms',
   };
 
+  // Grabs rooms to diplay from RoomStore
   roomsToDisplay() {
     const { BuildingStore } = this.props;
     const {

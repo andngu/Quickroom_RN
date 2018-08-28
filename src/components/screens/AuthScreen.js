@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { ADLoginView } from 'react-native-azure-ad';
 import { Button } from 'react-native-elements';

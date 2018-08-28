@@ -40,11 +40,7 @@ class DetailsScreen extends Component {
         },
         end: {
           dateTime: moment(this.props.DateStore.selectedDate)
-<<<<<<< HEAD
             .add(this.props.TimeStore.selectedId + 1, 'hours')
-=======
-            .add(1, 'hours')
->>>>>>> 80910725061d827556f768f0b7b1007011a60f85
             .utc()
             .format(),
           timeZone: 'UTC',

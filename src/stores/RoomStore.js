@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 
 class RoomStore {
   @observable
@@ -64,7 +64,8 @@ class RoomStore {
       title: 'WAG4',
     },
   ];
-  @observable selectedRoom = null;
+  @observable
+  selectedRoom = null;
 
   @action
   selectRoom(room) {
